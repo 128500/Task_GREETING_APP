@@ -1,7 +1,9 @@
 package com.kudin.alex.adras.greeting_app;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.*;
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -11,22 +13,30 @@ import java.util.ResourceBundle;
  */
 public class ApplicationRunner {
 
+    private final static Logger logger = LoggerFactory.getLogger(ApplicationRunner.class);
+
     public static void main(String[] args) {
 
-        Message message = new Message();
-        MyControl control = new MyControl();
-        ArgumentsDecipher ag = new ArgumentsDecipher();
-        ag.decipher(args);
+        try{
+            Message message = new Message();
+            MyControl control = new MyControl();
+            ArgumentsDecipher ag = new ArgumentsDecipher();
+            ag.decipher(args);
 
-        System.out.println("Hours = " + ag.getHours());
-        System.out.println("City = " + ag.getCity());
+            System.out.println("Hours = " + ag.getHours());
+            System.out.println("City = " + ag.getCity());
 
-        Locale locale = Locale.getDefault();
+            Locale locale = Locale.getDefault();
 
-        ResourceBundle currentLocale = ResourceBundle.getBundle("bundles.GreetingBundle", locale, control);
+            ResourceBundle currentLocale = ResourceBundle.getBundle("bundles.GreetingBundle", locale, control);
 
-        String mes = message.getMessage(currentLocale, ag.getHours()) + " " + ag.getCity() ;
+            String mes = message.getMessage(currentLocale, ag.getHours()) + " " + ag.getCity() ;
 
-        EventQueue.invokeLater(() -> new MessageFrame(null, mes));
+            EventQueue.invokeLater(() -> new MessageFrame(null, mes));
+        } catch(Exception e){
+            logger.error("Error occurred at runtime of the application!", e);
+            e.printStackTrace();
+        }
+
     }
 }
