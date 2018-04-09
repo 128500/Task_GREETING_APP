@@ -52,7 +52,7 @@ public class MessageTest {
 
     @Test
     public void getMessage_Evening() throws Exception {
-        int eve_hours = (int)Math.round(Math.random() * 4) + 19;
+        int eve_hours = (int)Math.round(Math.random() * 3) + 19;
         String ru_mes = message.getMessage(RU, eve_hours);
         assertTrue(ru_mes.equals("Добрый вечер"));
 
@@ -62,7 +62,7 @@ public class MessageTest {
 
     @Test
     public void getMessage_Night() throws Exception {
-        int night_hours = (int)Math.round(Math.random() * 6);
+        int night_hours = (int)Math.round(Math.random() * 5);
 
         String ru_mes = message.getMessage(RU, night_hours);
         assertTrue(ru_mes.equals("Доброй ночи"));
